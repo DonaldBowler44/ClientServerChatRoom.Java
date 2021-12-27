@@ -34,14 +34,14 @@ public class ChatServerM extends Application {
 			loader.setController(serverController);
 			serverLayout = (VBox) loader.load();
 
-			// Show the scene containing the root layout.
+			// Show scene containing root layout.
 			Scene scene = new Scene(serverLayout);
 			primaryStage.setScene(scene);
 			primaryStage.show();
 			primaryStage.setOnCloseRequest(new EventHandler<WindowEvent>() {
 				public void handle(WindowEvent we) {
-					// We need to eliminate the Server Threads
-					// If the User decides to close it.
+					// eliminates Server Threads
+					// If the User decides to close 
 					if (serverController.server != null) {
 						serverController.server.stop();
 						serverController.server = null;
