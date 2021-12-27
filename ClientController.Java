@@ -19,7 +19,6 @@ import javafx.scene.input.KeyEvent;
 
 public class ClientController {
 
-	// Java FX Implementation
 	@FXML
 	private Button btnLogin;
 	@FXML
@@ -47,16 +46,16 @@ public class ClientController {
 	private ObjectOutputStream sOutput;		// to write on the socket
 	private Socket socket;
 
-	/**
-	 * Method used by btnLogin from Java FX
-	 */
+	
+	 /* Method used by btnLogin from Java FX*/
+	
 	public void login() {
 		port = 1500;
 		server = txtHostIP.getText();
 		System.out.println(server);
 		username = txtUsername.getText();
 		// test if we can start the connection to the Server
-		// if it failed nothing we can do
+		
 		if(!start())
 			return;
 		connected = true;
@@ -66,9 +65,9 @@ public class ClientController {
 		txtHostIP.setEditable(false);
 	}
 
-	/**
-	 * Method used by btnLogout from Java FX
-	 */
+	
+	 /* Method used by btnLogout from Java FX*/
+	
 	public void logout() {
 		if (connected) {
 			ChatMessage msg = new ChatMessage(ChatMessage.LOGOUT, "");
@@ -86,9 +85,9 @@ public class ClientController {
 		}
 	}
 
-	/**
-	 * To send a message to the server
-	 */
+	
+	 /* To send  message to the server*/
+	
 	public void sendMessage() {
 		if (connected) {
 			ChatMessage msg = new ChatMessage(ChatMessage.MESSAGE, txtUserMsg.getText());
@@ -102,10 +101,10 @@ public class ClientController {
 		}
 	}
 
-	/**
-	 * Sends message to server
-	 * Used by TextArea txtUserMsg to handle Enter key event
-	 */
+	
+	 /* Sends message to server
+	 * Used by TextArea txtUserMsg to handle Enter key event*/
+	 
 	public void handleEnterPressed(KeyEvent event) {
 		if (event.getCode() == KeyCode.ENTER) {
 			sendMessage();
@@ -113,15 +112,15 @@ public class ClientController {
 		}
 	}
 
-	/**
-	 * To start the dialog
-	 */
+	
+	 /* To start the dialog*/
+	
 	public boolean start() {
-		// try to connect to the server
+		// try to connect to server
 		try {
 			socket = new Socket(server, port);
 		} 
-		// if it failed not much I can so
+		
 		catch(Exception ec) {
 			display("Error connectiong to server:" + ec);
 			return false;
@@ -141,7 +140,7 @@ public class ClientController {
 			return false;
 		}
 
-		// creates the Thread to listen from the server 
+		// creates Thread to listen from the server 
 		new ListenFromServer().start();
 		// Send our username to the server this is the only message that we
 		// will send as a String. All other messages will be ChatMessage objects
@@ -154,34 +153,34 @@ public class ClientController {
 			disconnect();
 			return false;
 		}
-		// success we inform the caller that it worked
+		//informs the caller that it worked
 		return true;
 	}
 
-	/*
-	 * To send a message to the console or the GUI
-	 */
+	
+	 /* To send a message to the console or the GUI*/
+	
 	private void display(String msg) {
 		txtAreaServerMsgs.appendText(msg + "\n"); // append to the ServerChatArea
 	}
 
-	/*
-	 * When something goes wrong
-	 * Close the Input/Output streams and disconnect not much to do in the catch clause
-	 */
+	
+	 /* When something goes wrong
+	 * Close the Input/Output streams and disconnect not much to do in the catch clause*/
+	
 	private void disconnect() {
 		try { 
 			if(sInput != null) sInput.close();
 		}
-		catch(Exception e) {} // not much else I can do
+		catch(Exception e) {} 
 		try {
 			if(sOutput != null) sOutput.close();
 		}
-		catch(Exception e) {} // not much else I can do
+		catch(Exception e) {} 
 		try{
 			if(socket != null) socket.close();
 		}
-		catch(Exception e) {} // not much else I can do
+		catch(Exception e) {} 
 
 		// inform the GUI
 		connectionFailed();
@@ -197,10 +196,10 @@ public class ClientController {
 		connected = false;
 	}
 
-	/*
-	 * a class that waits for the message from the server and append them to the JTextArea
-	 * if we have a GUI or simply System.out.println() it in console mode
-	 */
+	
+	 /* a class that waits for the message from the server and append them to the JTextArea
+	 * if we have a GUI or simply System.out.println() it in console mode */
+	 
 	class ListenFromServer extends Thread {
 
 		public void run() {
