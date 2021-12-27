@@ -78,7 +78,7 @@ public class Server {
 						tc.socket.close();
 					}
 					catch(IOException ioE) {
-						// not much I can do
+						
 					}
 				}
 			}
@@ -86,15 +86,15 @@ public class Server {
 				display("Exception closing the server and clients: " + e);
 			}
 		}
-		// something went bad
+		// something went wrong
 		catch (IOException e) {
 			String msg = sdf.format(new Date()) + " Exception on new ServerSocket: " + e + "\n";
 			display(msg);
 		}
 	}		
-	/*
-	 * For the GUI to stop the server
-	 */
+	
+	 /* For the GUI to stop the server */
+	 
 	public void stop() {
 		keepGoing = false;
 		// connect to myself as Client to exit statement 
@@ -103,7 +103,7 @@ public class Server {
 			new Socket("192.168.1.72", 1234);
 		}
 		catch(Exception e) {
-			// nothing I can really do
+			
 		}
 	}
 	/*
@@ -197,7 +197,7 @@ public class Server {
 				return;
 			}
 			// have to catch ClassNotFoundException
-			// but I read a String, I am sure it will work
+			// but I read a String
 			catch (ClassNotFoundException e) {
 			}
 			date = new Date().toString() + "\n";
